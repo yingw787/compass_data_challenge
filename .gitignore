@@ -1,2 +1,5 @@
 # SQLite3 Database file.
 pokemon.db
+
+# Schema description .txt file.
+schemas.txt
