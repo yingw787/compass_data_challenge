@@ -15,6 +15,9 @@ that you designed in that database.
 
 __________
 
+NOTE: Script should guarantee idempotency w.r.t. side effects on mainline
+execution flow.
+
 NOTE: Python module `sqlite3` connection and cursor objects do not implement
 method `__enter__`, which means that they cannot be used as part of a context
 manager. This may embrittle the process of closing connections in the event of
