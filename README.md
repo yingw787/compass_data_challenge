@@ -60,3 +60,12 @@
     of query results for OLAP workloads, and let the database stream results to
     a client. This may involve using a query explainer tool to examine how the
     view refreshes, which may change the optimum data model.
+
+-   **Value Simplicity**: I designed the data model to answer the questions
+    directly, trading off simplicity for extensibility where not needed may
+    count as premature optimization. When possible, I avoid usage of magic
+    strings/numbers and make the code as self-documenting and the mental model
+    as semantic as possible. I could apply a process pool and parallelize the
+    query execution and HTTP requests as the ingest pipeline is heavily
+    I/O-bound, however this may make debugging trickier and complicate the error
+    model, as runtime-based scheduling results in non-determinism.
