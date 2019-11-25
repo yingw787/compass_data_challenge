@@ -13,31 +13,64 @@ reprinted log statements).
 
 from __future__ import absolute_import
 
+import os
+import requests
+
+import sqlite3
+
 import utils
 
 
-def ingest_pokemon():
+def ingest_data():
     """Ingests the Pokemon model from the Pokemon API into SQLite table
     'pokemon'.
 
     NOTE: Problem statement explicitly discusses queries are bounded to the
     "first 15" of Pokemon. Assume that by the "first 15", sort by is on
     attribute "id" only, in ascending order (least to greatest).
-    """
-    if not utils.pokemon_table_schema_is_valid():
-        error_message = (
-            "SQLite table 'pokemon' is not valid. Re-run file " +
-            "'$(pwd)/part_1.py' to reset persistent state."
-        )
-        raise ValueError(error_message)
 
-
-def ingest_moves():
-    """Ingests the Moves model from the Pokemon API into SQLite table 'moves'.
+    NOTE: Due to the prior limitation, and the fact that the REST API has
+    limited separation of concerns w.r.t. model relations / associations, it may
+    be best to re-use state within one method, rather than have multiple methods
+    to retrieve data by data model.
     """
-    pass
+    def validate_execution_context():
+        """Validates execution context to checkpoint progress in data pipeline.
+        """
+        expected_db_name = 'pokemon.db'
+        expected_db_abspath = os.path.abspath(os.path.join(
+            os.path.dirname(__file__),
+            expected_db_name
+        ))
+        if not utils.database_exists():
+            error_message = (
+                'Database file \"{expected_db_abspath}\" does not exist.'
+            )
+            raise ValueError(error_message)
+
+        sqlite3_conn = sqlite3.connect(expected_db_name)
+        sqlite3_cursor = sqlite3_conn.cursor()
+
+        if not utils.pokemon_table_schema_is_valid(
+            sqlite3_conn,
+            sqlite3_cursor
+        ):
+            error_message = (
+                "SQLite table 'pokemon' is not valid. Re-run file " +
+                "'$(pwd)/part_1.py' to regenerate persistent state."
+            )
+            raise ValueError(error_message)
+
+        if not utils.moves_table_schema_is_valid(
+            sqlite3_conn,
+            sqlite3_cursor
+        ):
+            error_message = (
+                "SQLite table 'moves' is not valid. Re-run file " +
+                "'$(pwd)/part_1.py' to regenerate persistent state."
+            )
+            raise ValueError(error_message)
 
 
 if __name__=='__main__':
-    ingest_pokemon()
-    ingest_moves()
+    ingest_data()
