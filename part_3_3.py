@@ -19,3 +19,53 @@ duplicate records for pokemon by flattening out the types directly within the
 'pokemon' table. In order to retrieve a result set of distinct records, I added
 a DISTINCT keyword on column 'name' of table 'pokemon'.
 """
+
+from __future__ import absolute_import
+
+import csv
+import os
+
+import sqlite3
+
+
+def problem_3_3():
+    """Solution to Problem 3.3.
+    """
+    database_name = 'pokemon.db'
+    sqlite3_conn = sqlite3.connect(database_name)
+    sqlite3_cursor = sqlite3_conn.cursor()
+
+    sql_query = (
+        'SELECT DISTINCT name, num_moves ' +
+        'FROM pokemon ' +
+        'ORDER BY num_moves DESC;'
+    )
+    print('SQL statement: ', sql_query)
+    sqlite3_cursor.execute(sql_query)
+    result = sqlite3_cursor.fetchall()
+
+    result_filename = 'problem_3_3.csv'
+    result_abspath = os.path.abspath(os.path.join(
+        os.path.dirname(__file__),
+        result_filename
+    ))
+    if os.path.exists(result_abspath):
+        os.remove(result_abspath)
+
+    _fp = open(result_abspath, 'w')
+    writer = csv.writer(_fp)
+    writer.writerows(result)
+    _fp.flush()
+
+    sqlite3_cursor.close()
+    sqlite3_conn.close()
+
+    write_successful = (
+        'Writing result set has been successful. File located at: ' +
+        f'\"{result_abspath}\".'
+    )
+    print(write_successful)
+
+
+if __name__=='__main__':
+    problem_3_3()
