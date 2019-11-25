@@ -16,10 +16,10 @@
     cd /path/to/compass_data_challenge/
     ```
 
-2.  Execute the runfile to generate results:
+2.  Execute the runfile to generate results, and log to persistent state:
 
     ```bash
-    source ./run.sh
+    source $(pwd)/run.sh | tee $(pwd)/log.txt
     ```
 
 ## Notes
