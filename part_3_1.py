@@ -25,3 +25,53 @@ production setting, due to changing requirements, the best solution may be to
 download all moves into the table, and execute a filter by based on the
 aggregate set of distinct moves from the 'pokemon' table.
 """
+
+from __future__ import absolute_import
+
+import csv
+import os
+
+import sqlite3
+
+
+def problem_3_1():
+    """Solution to Problem 3.1.
+    """
+    database_name = 'pokemon.db'
+    sqlite3_conn = sqlite3.connect(database_name)
+    sqlite3_cursor = sqlite3_conn.cursor()
+
+    sql_query = (
+        'SELECT type, max(accuracy) ' +
+        'FROM moves ' +
+        'GROUP BY type ' +
+        'ORDER BY type;'
+    )
+    print('SQL statement: ', sql_query)
+    sqlite3_cursor.execute(sql_query)
+    result = sqlite3_cursor.fetchall()
+
+    result_filename = 'problem_3_1.csv'
+    result_abspath = os.path.abspath(os.path.join(
+        os.path.dirname(__file__),
+        result_filename
+    ))
+    os.remove(result_abspath)
+
+    _fp = open(result_abspath, 'w')
+    writer = csv.writer(_fp)
+    writer.writerows(result)
+    _fp.flush()
+
+    sqlite3_cursor.close()
+    sqlite3_conn.close()
+
+    write_successful = (
+        'Writing result set has been successful. File located at: ' +
+        f'\"{result_abspath}\".'
+    )
+    print(write_successful)
+
+
+if __name__=='__main__':
+    problem_3_1()
