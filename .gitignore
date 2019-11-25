@@ -3,3 +3,8 @@ pokemon.db*
 
 # Schema description .txt file.
 schemas.txt
+
+# Result CSVs.
+problem_3_1.csv
+problem_3_2.csv
+problem_3_3.csv
