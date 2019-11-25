@@ -22,6 +22,11 @@
     source ./run.sh
     ```
 
+## Notes
+
+-   Explanations on problem understanding and how I arrived at a particular
+    conclusion are present within module docstrings.
+
 ## Design Principles
 
 -   **Reproducible, Hermetic Builds**: I used Docker to reduce any discrepancies
