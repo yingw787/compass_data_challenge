@@ -59,6 +59,7 @@ def generate_sqlite_schema():
     CREATE TABLE pokemon
     (
         id INTEGER PRIMARY KEY NOT NULL,
+        pokemon_id INTEGER PRIMARY KEY NOT NULL,
         name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
         weight INTEGER NOT NULL,
@@ -71,7 +72,7 @@ def generate_sqlite_schema():
     moves_create_table_sql = '''
     CREATE TABLE moves
     (
-        id INTEGER PRIMARY KEY NOT NULL,
+        move_id INTEGER PRIMARY KEY NOT NULL,
         type NVARCHAR(256) NOT NULL,
         accuracy INTEGER NOT NULL
     );

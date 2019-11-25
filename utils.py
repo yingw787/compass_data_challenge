@@ -68,13 +68,14 @@ def pokemon_table_schema_is_valid(
 
     expected = '''
     CREATE TABLE pokemon
-        (
-            id INTEGER PRIMARY KEY NOT NULL,
-            name NVARCHAR(256) NOT NULL,
-            type NVARCHAR(256) NOT NULL,
-            weight INTEGER NOT NULL,
-            num_moves INTEGER NOT NULL
-        )
+    (
+        id INTEGER PRIMARY KEY NOT NULL,
+        pokemon_id INTEGER PRIMARY KEY NOT NULL,
+        name NVARCHAR(256) NOT NULL,
+        type NVARCHAR(256) NOT NULL,
+        weight INTEGER NOT NULL,
+        num_moves INTEGER NOT NULL
+    );
     '''
     expected = re.sub('[^0-9a-zA-Z\(\)]', ' ', expected)
     expected = ' '.join(expected.split())
@@ -131,7 +132,7 @@ def moves_table_schema_is_valid(
     expected = '''
     CREATE TABLE moves
     (
-        id INTEGER PRIMARY KEY NOT NULL,
+        move_id INTEGER PRIMARY KEY NOT NULL,
         type NVARCHAR(256) NOT NULL,
         accuracy INTEGER NOT NULL
     );
