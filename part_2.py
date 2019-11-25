@@ -84,6 +84,7 @@ def ingest_data():
 
     for pokemon_id in pokemon_id_genexpr:
         api_endpoint = api_base_endpoint + 'pokemon/' + str(pokemon_id)
+        print('HTTP GET on: ', api_endpoint)
         response = requests.get(api_endpoint)
         if response.status_code != 200:
             error_message = (
@@ -125,6 +126,7 @@ def ingest_data():
 
         for pokemon_move in pokemon_moves:
             pokemon_move_url = pokemon_move['move']['url']
+            print('HTTP GET on: ', pokemon_move_url)
             response = requests.get(pokemon_move_url)
             if response.status_code != 200:
                 error_message = (
@@ -170,6 +172,9 @@ def ingest_data():
 
                 sqlite3_cursor.execute(sql_statement, {'null': None})
                 sqlite3_conn.commit()
+
+    sqlite3_cursor.close()
+    sqlite3_conn.close()
 
 
 if __name__=='__main__':
