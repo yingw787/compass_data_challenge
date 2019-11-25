@@ -12,8 +12,11 @@ DOCKER=$(which docker)
 GIT=$(which git)
 
 GIT_REPO_ROOT=$(git rev-parse --show-toplevel)
+DOCKER_BASE_IMAGE='continuumio/anaconda3:latest'
 DOCKER_IMAGE_NAME='compass:latest'
 DOCKER_CONTAINER_NAME='compass_data_challenge'
+
+$DOCKER pull $DOCKER_BASE_IMAGE
 
 $DOCKER build $GIT_REPO_ROOT \
     --tag $DOCKER_IMAGE_NAME
