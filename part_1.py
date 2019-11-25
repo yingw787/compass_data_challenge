@@ -59,7 +59,7 @@ def generate_sqlite_schema():
     CREATE TABLE pokemon
     (
         id INTEGER PRIMARY KEY NOT NULL,
-        pokemon_id INTEGER PRIMARY KEY NOT NULL,
+        pokemon_id INTEGER NOT NULL,
         name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
         weight INTEGER NOT NULL,
