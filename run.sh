@@ -31,4 +31,4 @@ fi
 $DOCKER run \
     --name $DOCKER_CONTAINER_NAME \
     --network=host \
-    -itd $DOCKER_IMAGE_NAME
+    -it $DOCKER_IMAGE_NAME
