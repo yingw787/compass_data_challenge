@@ -61,7 +61,8 @@ def pokemon_table_schema_is_valid():
             id INTEGER PRIMARY KEY NOT NULL,
             name NVARCHAR(256) NOT NULL,
             type NVARCHAR(256) NOT NULL,
-            weight INTEGER NOT NULL
+            weight INTEGER NOT NULL,
+            num_moves INTEGER NOT NULL
         )
     '''
     expected = re.sub('[^0-9a-zA-Z\(\)]', ' ', expected)

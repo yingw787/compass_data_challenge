@@ -37,17 +37,6 @@ import sqlite3
 def generate_sqlite_schema():
     """Generates the SQLite schema according to problem requirements.
     """
-    # The problems involve keeping track of:
-    # - Pokemon
-    #   - Weight
-    #   - Type
-    #
-    # - Moves
-    #   - Type
-    #   - Accuracy
-    #
-    # With a JOIN issued on type between the two tables.
-
     # Define variables to be used as part of the method.
     database = 'pokemon.db'
 
@@ -72,7 +61,8 @@ def generate_sqlite_schema():
         id INTEGER PRIMARY KEY NOT NULL,
         name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
-        weight INTEGER NOT NULL
+        weight INTEGER NOT NULL,
+        num_moves INTEGER NOT NULL
     );
     '''
     sqlite3_cursor.execute(pokemon_create_table_sql)
