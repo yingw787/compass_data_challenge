@@ -56,7 +56,8 @@ def problem_3_1():
         os.path.dirname(__file__),
         result_filename
     ))
-    os.remove(result_abspath)
+    if os.path.exists(result_abspath):
+        os.remove(result_abspath)
 
     _fp = open(result_abspath, 'w')
     writer = csv.writer(_fp)
