@@ -58,7 +58,6 @@ def generate_sqlite_schema():
     pokemon_create_table_sql = '''
     CREATE TABLE pokemon
     (
-        id INTEGER PRIMARY KEY NOT NULL,
         pokemon_id INTEGER NOT NULL,
         name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
@@ -69,12 +68,15 @@ def generate_sqlite_schema():
     sqlite3_cursor.execute(pokemon_create_table_sql)
     sqlite3_conn.commit()
 
+    # column 'accuracy' is nullable because some values can be null:
+    # https://pokeapi.co/api/v2/move/14
     moves_create_table_sql = '''
     CREATE TABLE moves
     (
         move_id INTEGER PRIMARY KEY NOT NULL,
+        name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
-        accuracy INTEGER NOT NULL
+        accuracy INTEGER
     );
     '''
     sqlite3_cursor.execute(moves_create_table_sql)

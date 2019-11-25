@@ -69,7 +69,6 @@ def pokemon_table_schema_is_valid(
     expected = '''
     CREATE TABLE pokemon
     (
-        id INTEGER PRIMARY KEY NOT NULL,
         pokemon_id INTEGER NOT NULL,
         name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
@@ -133,8 +132,9 @@ def moves_table_schema_is_valid(
     CREATE TABLE moves
     (
         move_id INTEGER PRIMARY KEY NOT NULL,
+        name NVARCHAR(256) NOT NULL,
         type NVARCHAR(256) NOT NULL,
-        accuracy INTEGER NOT NULL
+        accuracy INTEGER
     );
     '''
     expected = re.sub('[^0-9a-zA-Z\(\)]', ' ', expected)
